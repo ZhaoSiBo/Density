@@ -11,13 +11,13 @@
 
 3. 屏幕尺寸：指手机对角线的物理尺寸（例如：某某手机，5.5寸手机屏幕），其中设计师给的设计图可能经常是按照IOS的屏幕尺寸给图的，这个有可能根据屏幕适配的方案不同，会产生不同影响，这里给出大部分IOS手机的屏幕尺寸
 
-![IOS尺寸](https://zhao-image.oss-cn-shenzhen.aliyuncs.com/v2-74195f3457be0b7ac2daf04ae467b2e0_hd.jpg?Expires=1587438597&OSSAccessKeyId=TMP.3KkcJhNj9oHF61yKAzQuyA14pzExMJKKK5wo4ALidVB1zSc6SGS1o6KQBiuCYewzndpekQNGeAcRHDkHdPcqXtVuCLZxQz&Signature=wxZqoj%2BjYj%2FdGl0dToXhhmb%2B%2B2s%3D)
+![IOS尺寸](https://i.loli.net/2020/05/08/ohnZfdzG6MYNOpg.jpg)
 
 4. 屏幕像素密度（dpi）:每英寸的像素点数，例如每英寸内有160个像素点，则其像素密度为160dpi
     * 标准的项目密度就是 160dpi，既：1dpi = 1px
     * 计算公式： 像素密度=像素/屏幕物理尺寸
     * 标准屏幕像素密度（mdpi）：每英寸长度上还有160个像素点（160dpi），即称为标准屏幕像素密度（mdpi）。
-    ![密度类型，分辨率，屏幕像素密度关系图](https://zhao-image.oss-cn-shenzhen.aliyuncs.com/%E5%83%8F%E7%B4%A0%E5%AF%86%E5%BA%A6%E5%85%B3%E7%B3%BB%E5%9B%BE.jpg?Expires=1587438638&OSSAccessKeyId=TMP.3KkcJhNj9oHF61yKAzQuyA14pzExMJKKK5wo4ALidVB1zSc6SGS1o6KQBiuCYewzndpekQNGeAcRHDkHdPcqXtVuCLZxQz&Signature=ONVdyb9j8hG3%2BPqrNCydrm1lPuU%3D)
+   ![像素密度关系图.jpg](https://i.loli.net/2020/05/08/cWpjsbJmILAqSvu.jpg)
     
 5. 密度无关像素（dp或者dpi）：可以保证在不同屏幕像素密度的设备上显示相同的效果，是Android特有的长度单位。
 
@@ -31,7 +31,7 @@
 今日头条的实际适配方案本质上是动态修改手机的density（1dp 等于多少px）来进行设计图适配的
 
 在将xml文件中的dp，转化成px，显示到屏幕的过程中，Android通过使用TypedValue#applyDimension(int unit, float value, DisplayMetrics metrics) 方法来进行转换
-![TypedValue#applyDimension](https://zhao-image.oss-cn-shenzhen.aliyuncs.com/TypedValue.webp?Expires=1587438650&OSSAccessKeyId=TMP.3KkcJhNj9oHF61yKAzQuyA14pzExMJKKK5wo4ALidVB1zSc6SGS1o6KQBiuCYewzndpekQNGeAcRHDkHdPcqXtVuCLZxQz&Signature=MKLKfr3pnuWdLqwcwDDpNdRfH5Q%3D)
+![TypedValue.jpg](https://i.loli.net/2020/05/08/dlgns6PwMpe4WGK.jpg)
 #### 所以，我们的适配方案就是修改手机中的density，来进行适配工作。我们只需要使，我们手机的宽度的dp值 = 设计图的宽度的dp值。这样，我们在xml文件中，所写的宽度，就会按照设计图中的宽度占比来显示。
 
 #### 所以，我们修改后的 density = 设备的px / 设计图的dp值，我们只要将这个公式，应用在修改density的代码中即可。
@@ -40,7 +40,7 @@
 
 以本设计图为例
 
-![样本设计图](https://zhao-image.oss-cn-shenzhen.aliyuncs.com/v2-74195f3457be0b7ac2daf04ae467b2e0_hd.jpg?Expires=1587438663&OSSAccessKeyId=TMP.3KkcJhNj9oHF61yKAzQuyA14pzExMJKKK5wo4ALidVB1zSc6SGS1o6KQBiuCYewzndpekQNGeAcRHDkHdPcqXtVuCLZxQz&Signature=jlqQ%2BP8g%2FoYGTFB2%2BstRCoVqjRg%3D)
+![样本设计图](https://i.loli.net/2020/05/08/jyZAiFBJV8Ewrx1.png)
 
 #### 该设计图为750px * 1334px 大小，通过蓝湖，折算成 375dp * 750dp
 #### 所以适配工作则为通过宽度适配，打到让不同dp宽度的手机适配为375dp宽度的效果
@@ -62,16 +62,14 @@
 
 6. 通过CancelAdapt接口来对取消适配的Activit进行标记
 
-![Density的代码结构图](https://zhao-image.oss-cn-shenzhen.aliyuncs.com/Dnesityd%E7%9A%84%E4%BB%A3%E7%A0%81%E7%BB%93%E6%9E%84.png?Expires=1587438677&OSSAccessKeyId=TMP.3KkcJhNj9oHF61yKAzQuyA14pzExMJKKK5wo4ALidVB1zSc6SGS1o6KQBiuCYewzndpekQNGeAcRHDkHdPcqXtVuCLZxQz&Signature=C34FC4BTU0fFbKCriDgDpeo3CfY%3D
-)
+![Dnesityd的代码结构.png](https://i.loli.net/2020/05/08/qXVcprLPsO8QuUk.png)
 
 ### 实现效果：
 
 1. 通过约束布局中的约束，直接控制大小为50%等效于在xml文件中直接写入187dp，控制约束为100%等效于在xml文件中接入375dp，则证明，适配结果已经控制屏幕宽度始终未375dp
 
 
-![Density的实现效果](https://zhao-image.oss-cn-shenzhen.aliyuncs.com/Density%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%95%88%E6%9E%9C.jpg?Expires=1587438686&OSSAccessKeyId=TMP.3KkcJhNj9oHF61yKAzQuyA14pzExMJKKK5wo4ALidVB1zSc6SGS1o6KQBiuCYewzndpekQNGeAcRHDkHdPcqXtVuCLZxQz&Signature=90%2BV7wysgzno2F5qIzRji4rLbvg%3D
-)
+![Density的实现效果.jpg](https://i.loli.net/2020/05/08/xk9KX6iRJVym54r.jpg)
 
 
 ### 遗留的问题
@@ -85,7 +83,6 @@
 
 这是推荐的图标尺寸
 
-![推荐的图标尺寸](https://zhao-image.oss-cn-shenzhen.aliyuncs.com/Android%E6%8E%A8%E8%8D%90%E5%9B%BE%E6%A0%87%E5%B0%BA%E5%AF%B8.png?Expires=1587438700&OSSAccessKeyId=TMP.3KkcJhNj9oHF61yKAzQuyA14pzExMJKKK5wo4ALidVB1zSc6SGS1o6KQBiuCYewzndpekQNGeAcRHDkHdPcqXtVuCLZxQz&Signature=NyPKUHX0D9qvMgT9Vuopd%2BT153s%3D
-)
+![推荐的图标尺寸](https://i.loli.net/2020/05/08/i5fGRAmahS3KOcJ.png)
 
 2.关于图标问题，在8.0开始，图标开始分成前后景图标，需要UI配合制作特殊的，附上链接一篇讲解比较详细的文章https://blog.csdn.net/guolin_blog/article/details/79417483
